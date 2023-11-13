@@ -3,8 +3,8 @@
 
 %{
 
-enum { OTHER=0, PLUS, MULT, MINUS, DIV, ASSIGN, ID, TYPE, DIMENSION, SIZE, VALUE, EOL };
-//     0        1     2     3      4      9     10   11      12       13     14    15
+enum { OTHER=0, PLUS, MULT, MINUS, DIV, ASSIGN, ID, TYPE, DIMENSION, SIZE, VALUE, EOL, COMMENT };
+//     0        1     2     3      4      9     10   11      12       13     14    15     16
 
 %}
 
@@ -35,6 +35,8 @@ enum { OTHER=0, PLUS, MULT, MINUS, DIV, ASSIGN, ID, TYPE, DIMENSION, SIZE, VALUE
 \n          return EOL;         /* end of line */
 
 .           return OTHER;       /* the rest is (character wise) recognized as OTHER token  */
+
+#.*(?=\n)   return COMMENT;
 
 %%
 
