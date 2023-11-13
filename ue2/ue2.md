@@ -1,5 +1,7 @@
 # UE-2 Wolf
 
+Korrektes formatting: https://github.com/Mackesmilian/SPK/blob/master/ue2/ue2.md
+
 ## 1 Ableitung & Ableitungsbaum
 
 ### Geben Sie für die Grammatik G1 die Ableitung für aaucc und den Ableitungsbaum für aaavccc an.
