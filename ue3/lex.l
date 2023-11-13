@@ -23,8 +23,8 @@ enum { OTHER=0, PLUS, MULT, MINUS, DIV, ASSIGN, ID, TYPE, DIMENSION, SIZE, VALUE
 " set "       return ASSIGN;
 
 ([a-zA-Z]+[0-9]*)*      return ID;
-(float | int ) return TYPE;
-"[1]|[2]|[3]"   return DIMENSION;
+(float[:space:]|int[:space:])|(float[:space:]*>0|int[:space:]*>0)  return TYPE;
+"[1|2|3]"   return DIMENSION;
 \[[1-9]+[0-9]*\] return SIZE;
 \-?[0-9,?]+ return VALUE;
 
@@ -36,7 +36,7 @@ enum { OTHER=0, PLUS, MULT, MINUS, DIV, ASSIGN, ID, TYPE, DIMENSION, SIZE, VALUE
 
 .           return OTHER;       /* the rest is (character wise) recognized as OTHER token  */
 
-# *.*\n   /* ignore comment*/
+#[:space:]*.*\n   /* ignore comment*/
 
 %%
 
