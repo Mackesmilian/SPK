@@ -4,7 +4,7 @@
 %{
 
 enum { OTHER=0, PLUS, MULT, MINUS, DIV, ASSIGN, ID, TYPE, DIMENSION, SIZE, VALUE, EOL };
-//     0        1     2     3      4      9     10   11      12       13  
+//     0        1     2     3      4      9     10   11      12       13     14    15
 
 %}
 
