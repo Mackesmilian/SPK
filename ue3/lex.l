@@ -23,10 +23,10 @@ enum { OTHER=0, PLUS, MULT, MINUS, DIV, ASSIGN, ID, TYPE, DIMENSION, SIZE, VALUE
 " set "       return ASSIGN;
 
 ([a-zA-Z]+[0-9]*)*      return ID;
-((float|int) *>0?)|(float | int ) return TYPE;
-\\[(1|2|3)\\]   return DIMENSION;
-\\[[1-9]+[0-9]*\\] return SIZE;
-\\-?[0-9,?]+ return VALUE;
+(float | int ) return TYPE;
+"[1]|[2]|[3]"   return DIMENSION;
+\[[1-9]+[0-9]*\] return SIZE;
+\-?[0-9,?]+ return VALUE;
 
 ^[ \t]*\n   /* ignore empty lines */
 
