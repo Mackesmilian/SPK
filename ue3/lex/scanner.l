@@ -3,8 +3,8 @@
 
 %{
 
-enum { OTHER=0, PLUS, MULT, MINUS, DIV, ASSIGN, ID, TYPE, DIMENSION, SIZE, VALUE, EOL};
-//     0        1     2     3      4      9     10   11      12       13     14    15  
+enum { OTHER=0, PLUS, MULT, MINUS, DIV, ASSIGN, ID, NUMBER, TYPE, DIMENSION, SIZE, COMMENT, END, EOL };
+//     0        1     2     3      4        9   10    11     12   13    14
 
 %}
 
@@ -18,15 +18,18 @@ enum { OTHER=0, PLUS, MULT, MINUS, DIV, ASSIGN, ID, TYPE, DIMENSION, SIZE, VALUE
 
 "+"         return PLUS; 
 "*"         return MULT;
-"-"         return MINUS;
+\-/" "          return MINUS;
 "/"         return DIV;
-" set "       return ASSIGN;
 
-([a-zA-Z]+[0-9]*)*      return ID;
-(float[:space:]|int[:space:])|(float[:space:]*>0|int[:space:]*>0)  return TYPE;
-"[1|2|3]"   return DIMENSION;
-\[[1-9]+[0-9]*\] return SIZE;
-\-?[0-9,?]+ return VALUE;
+"set"        return ASSIGN;
+"end"       return END;
+(float|int)|(float>0|int>0)       return TYPE;
+\[(1|2|3)\]/\[[1-9][0-9]*\] return DIMENSION;
+\[[1-9][0-9]*\] return SIZE;
+#.*$ return COMMENT;
+
+[a-z]+[a-zA-Z0-9]*      return ID;
+-?[0-9]+(\.[0-9]+)?   return NUMBER;
 
 ^[ \t]*\n   /* ignore empty lines */
 
@@ -35,8 +38,6 @@ enum { OTHER=0, PLUS, MULT, MINUS, DIV, ASSIGN, ID, TYPE, DIMENSION, SIZE, VALUE
 \n          return EOL;         /* end of line */
 
 .           return OTHER;       /* the rest is (character wise) recognized as OTHER token  */
-
-#[:space:]*.*\n   /* ignore comment*/
 
 %%
 

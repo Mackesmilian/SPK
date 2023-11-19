@@ -6,7 +6,7 @@
 extern int yylex (void);
 extern char *yytext;
 
-char * token[] = { "OTHER", "PLUS", "MULT", "MINUS", "DIV", "ASSIGN", "ID", "TYPE", "DIMENSION", "SIZE", "VALUE", "EOL"};
+char * token[] = { "OTHER", "PLUS", "MULT", "MINUS", "DIV", "ASSIGN", "ID", "NUMBER", "TYPE", "DIMENSION", "SIZE", "COMMENT", "END", "EOL"};
 
 int main(int argc, char **argv) {
     int nr; 
@@ -15,12 +15,12 @@ int main(int argc, char **argv) {
         nr = yylex(); 
 
         printf("[%02d]\t%s\t", nr, token[nr]); 
-        if (nr != 15)
+        if (nr != 13)
             printf("%s", yytext); // yytext: the recognized token, as a string
         else
             printf("\\n"); 
         printf("\n");
  
-        } while (nr != 15); // token 15 = END
+        } while (nr != 12); // token 12 = END
 
     }
