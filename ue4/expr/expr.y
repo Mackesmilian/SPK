@@ -10,33 +10,36 @@
 extern int yylex(void); 
 extern char *yytext;    
 extern int yylineno;    
-#define YYSTYPE double  
-
-double mem = 0; // define the memory variable
+double mem[26] = {0};
 double res = 0;
 
 int yyerror(char *s);  
 %}
 
+%union {
+        int intValue;
+        double realValue;
+}
+
 %token PLUS_OP MINUS_OP MULT_OP DIV_OP 
 %token PAR_LEFT PAR_RIGHT
 %token EOL
 %token OTHER
-%token FPNUM
-%token MEM // new token for memory variable
-%token ASSIGN // new token for assignment operator
+%token <realValue> FPNUM
+%token <intValue> MEM // new token for memory variable
+%token <intValue> ASSIGN // new token for assignment operator
 
 %start lines
-
+%type <realValue> sigfactor term factor line lines 
 %%
 
 lines   : lines line
         |                           
         ;
 
-line    : ASSIGN term EOL           { mem = res; printf("%.6f\n", mem);} // assignment to memory
+line    : ASSIGN MEM EOL            { mem[$2] = res; printf("%.6f ---- %d ---- %c\n", mem[$2], $2, $2 + 'a');} // assignment to memory
         | term EOL                  { printf("%.6f\n", $1); res = $1;} // store result in memory
-        | MEM EOL                   { $$ = mem; printf("%.6f\n", mem); } // use memory value
+        | MEM EOL                   { $$ = mem[$1]; printf("%.6f ---- %d ---- %c\n", mem[$1], $1, $1 + 'a'); } // use memory value
         ;
 
 term    : term MULT_OP factor       { $$ = $1 * $3; }   
@@ -52,7 +55,7 @@ sigfactor : factor                  { $$ =  $1; }
 
 factor  : FPNUM                     { $$ = $1; }        
         | PAR_LEFT term PAR_RIGHT   { $$ = $2; }
-        | MEM                       { $$ = mem; } // use memory value
+        | MEM                       { $$ = mem[$1]; } // use memory value
         ;
 
 

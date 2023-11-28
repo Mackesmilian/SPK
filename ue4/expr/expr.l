@@ -32,7 +32,7 @@ digit [0-9]
                             } 
 
 "="         return ASSIGN;
-"m"         return MEM; // new token for memory variable
+[a-z]       {yylval.intValue = yytext[0] - 'a'; return MEM;} // new token for memory variable
 
 ^[ \t]*\n                   /* ignore empty lines                           */
 [ \t]                       /* ignore space, tab within line                */

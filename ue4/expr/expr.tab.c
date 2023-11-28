@@ -75,14 +75,12 @@
 extern int yylex(void); 
 extern char *yytext;    
 extern int yylineno;    
-#define YYSTYPE double  
-
-double mem = 0; // define the memory variable
+double mem[26] = {0};
 double res = 0;
 
 int yyerror(char *s);  
 
-#line 86 "expr.tab.c"
+#line 84 "expr.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -457,7 +455,7 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  2
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   55
+#define YYLAST   48
 
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  14
@@ -516,8 +514,8 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    33,    33,    34,    37,    38,    39,    42,    43,    44,
-      45,    46,    49,    50,    51,    53,    54,    55
+       0,    36,    36,    37,    40,    41,    42,    45,    46,    47,
+      48,    49,    52,    53,    54,    56,    57,    58
 };
 #endif
 
@@ -546,7 +544,7 @@ yysymbol_name (yysymbol_kind_t yysymbol)
 }
 #endif
 
-#define YYPACT_NINF (-8)
+#define YYPACT_NINF (-10)
 
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
@@ -560,9 +558,9 @@ yysymbol_name (yysymbol_kind_t yysymbol)
    STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-      -8,     4,    -8,    17,    17,    19,    -8,    -7,    19,    -8,
-      29,    -8,    -8,    -8,    -8,    -8,    43,    -8,    36,    19,
-      19,    17,    17,    -8,    -8,    -8,    49,    49,    -8,    -8
+     -10,     4,   -10,    -2,    -2,    19,   -10,    -7,    -9,   -10,
+      29,   -10,   -10,   -10,   -10,   -10,    36,   -10,     3,    19,
+      19,    -2,    -2,   -10,   -10,   -10,    42,    42,   -10,   -10
 };
 
 /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -578,7 +576,7 @@ static const yytype_int8 yydefact[] =
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-      -8,    -8,    -8,     1,    -8,    -3
+     -10,   -10,   -10,     1,   -10,    -3
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
@@ -592,22 +590,20 @@ static const yytype_int8 yydefgoto[] =
    number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-      14,    15,    17,     0,     2,     0,    16,     3,     4,    18,
-       0,     5,     0,     0,     0,     6,     7,     8,    28,    29,
-      26,    27,     3,     4,     5,     0,     5,     0,     6,    13,
+      14,    15,    17,    18,     2,     5,    16,     3,     4,     6,
+      13,     5,    25,     0,     0,     6,     7,     8,    28,    29,
+      26,    27,     3,     4,     0,     0,     5,     0,     0,     0,
        6,    13,    19,    20,    21,    22,     0,     0,    23,    19,
-      20,    21,    22,     0,     0,    25,    19,    20,    21,    22,
-       0,    24,    19,    20,    21,    22
+      20,    21,    22,     0,    24,    19,    20,    21,    22
 };
 
 static const yytype_int8 yycheck[] =
 {
-       3,     4,     9,    -1,     0,    -1,     5,     3,     4,     8,
-      -1,     7,    -1,    -1,    -1,    11,    12,    13,    21,    22,
-      19,    20,     3,     4,     7,    -1,     7,    -1,    11,    12,
+       3,     4,     9,    12,     0,     7,     5,     3,     4,    11,
+      12,     7,     9,    -1,    -1,    11,    12,    13,    21,    22,
+      19,    20,     3,     4,    -1,    -1,     7,    -1,    -1,    -1,
       11,    12,     3,     4,     5,     6,    -1,    -1,     9,     3,
-       4,     5,     6,    -1,    -1,     9,     3,     4,     5,     6,
-      -1,     8,     3,     4,     5,     6
+       4,     5,     6,    -1,     8,     3,     4,     5,     6
 };
 
 /* YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
@@ -615,7 +611,7 @@ static const yytype_int8 yycheck[] =
 static const yytype_int8 yystos[] =
 {
        0,    15,     0,     3,     4,     7,    11,    12,    13,    16,
-      17,    18,    19,    12,    19,    19,    17,     9,    17,     3,
+      17,    18,    19,    12,    19,    19,    17,     9,    12,     3,
        4,     5,     6,     9,     8,     9,    17,    17,    19,    19
 };
 
@@ -1093,92 +1089,92 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
-  case 4: /* line: ASSIGN term EOL  */
-#line 37 "expr.y"
-                                       { mem = res; printf("%.6f\n", mem);}
-#line 1100 "expr.tab.c"
+  case 4: /* line: ASSIGN MEM EOL  */
+#line 40 "expr.y"
+                                    { mem[(yyvsp[-1].intValue)] = res; printf("%.6f ---- %d ---- %c\n", mem[(yyvsp[-1].intValue)], (yyvsp[-1].intValue), (yyvsp[-1].intValue) + 'a');}
+#line 1096 "expr.tab.c"
     break;
 
   case 5: /* line: term EOL  */
-#line 38 "expr.y"
-                                    { printf("%.6f\n", yyvsp[-1]); res = yyvsp[-1];}
-#line 1106 "expr.tab.c"
+#line 41 "expr.y"
+                                    { printf("%.6f\n", (yyvsp[-1].realValue)); res = (yyvsp[-1].realValue);}
+#line 1102 "expr.tab.c"
     break;
 
   case 6: /* line: MEM EOL  */
-#line 39 "expr.y"
-                                    { yyval = mem; printf("%.6f\n", mem); }
-#line 1112 "expr.tab.c"
+#line 42 "expr.y"
+                                    { (yyval.realValue) = mem[(yyvsp[-1].intValue)]; printf("%.6f ---- %d ---- %c\n", mem[(yyvsp[-1].intValue)], (yyvsp[-1].intValue), (yyvsp[-1].intValue) + 'a'); }
+#line 1108 "expr.tab.c"
     break;
 
   case 7: /* term: term MULT_OP factor  */
-#line 42 "expr.y"
-                                    { yyval = yyvsp[-2] * yyvsp[0]; }
-#line 1118 "expr.tab.c"
+#line 45 "expr.y"
+                                    { (yyval.realValue) = (yyvsp[-2].realValue) * (yyvsp[0].realValue); }
+#line 1114 "expr.tab.c"
     break;
 
   case 8: /* term: term DIV_OP factor  */
-#line 43 "expr.y"
-                                    { yyval = yyvsp[-2] / yyvsp[0]; }
-#line 1124 "expr.tab.c"
+#line 46 "expr.y"
+                                    { (yyval.realValue) = (yyvsp[-2].realValue) / (yyvsp[0].realValue); }
+#line 1120 "expr.tab.c"
     break;
 
   case 9: /* term: term PLUS_OP term  */
-#line 44 "expr.y"
-                                    { yyval = yyvsp[-2] + yyvsp[0]; }
-#line 1130 "expr.tab.c"
+#line 47 "expr.y"
+                                    { (yyval.realValue) = (yyvsp[-2].realValue) + (yyvsp[0].realValue); }
+#line 1126 "expr.tab.c"
     break;
 
   case 10: /* term: term MINUS_OP term  */
-#line 45 "expr.y"
-                                    { yyval = yyvsp[-2] - yyvsp[0]; }
-#line 1136 "expr.tab.c"
+#line 48 "expr.y"
+                                    { (yyval.realValue) = (yyvsp[-2].realValue) - (yyvsp[0].realValue); }
+#line 1132 "expr.tab.c"
     break;
 
   case 11: /* term: sigfactor  */
-#line 46 "expr.y"
-                                    { yyval = yyvsp[0]; }
-#line 1142 "expr.tab.c"
+#line 49 "expr.y"
+                                    { (yyval.realValue) = (yyvsp[0].realValue); }
+#line 1138 "expr.tab.c"
     break;
 
   case 12: /* sigfactor: factor  */
-#line 49 "expr.y"
-                                    { yyval =  yyvsp[0]; }
-#line 1148 "expr.tab.c"
+#line 52 "expr.y"
+                                    { (yyval.realValue) =  (yyvsp[0].realValue); }
+#line 1144 "expr.tab.c"
     break;
 
   case 13: /* sigfactor: PLUS_OP factor  */
-#line 50 "expr.y"
-                                    { yyval =  yyvsp[0]; }
-#line 1154 "expr.tab.c"
+#line 53 "expr.y"
+                                    { (yyval.realValue) =  (yyvsp[0].realValue); }
+#line 1150 "expr.tab.c"
     break;
 
   case 14: /* sigfactor: MINUS_OP factor  */
-#line 51 "expr.y"
-                                    { yyval = -yyvsp[0]; }
-#line 1160 "expr.tab.c"
+#line 54 "expr.y"
+                                    { (yyval.realValue) = -(yyvsp[0].realValue); }
+#line 1156 "expr.tab.c"
     break;
 
   case 15: /* factor: FPNUM  */
-#line 53 "expr.y"
-                                    { yyval = yyvsp[0]; }
-#line 1166 "expr.tab.c"
+#line 56 "expr.y"
+                                    { (yyval.realValue) = (yyvsp[0].realValue); }
+#line 1162 "expr.tab.c"
     break;
 
   case 16: /* factor: PAR_LEFT term PAR_RIGHT  */
-#line 54 "expr.y"
-                                    { yyval = yyvsp[-1]; }
-#line 1172 "expr.tab.c"
+#line 57 "expr.y"
+                                    { (yyval.realValue) = (yyvsp[-1].realValue); }
+#line 1168 "expr.tab.c"
     break;
 
   case 17: /* factor: MEM  */
-#line 55 "expr.y"
-                                    { yyval = mem; }
-#line 1178 "expr.tab.c"
+#line 58 "expr.y"
+                                    { (yyval.realValue) = mem[(yyvsp[0].intValue)]; }
+#line 1174 "expr.tab.c"
     break;
 
 
-#line 1182 "expr.tab.c"
+#line 1178 "expr.tab.c"
 
       default: break;
     }
@@ -1371,7 +1367,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 59 "expr.y"
+#line 62 "expr.y"
 
 
 int main(int argc, char **argv) {

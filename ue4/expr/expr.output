@@ -15,7 +15,7 @@ Grammar
     1 lines: lines line
     2      | ε
 
-    3 line: ASSIGN term EOL
+    3 line: ASSIGN MEM EOL
     4     | term EOL
     5     | MEM EOL
 
@@ -46,28 +46,28 @@ Terminals, with rules where they appear
     PAR_RIGHT (263) 15
     EOL (264) 3 4 5
     OTHER (265)
-    FPNUM (266) 14
-    MEM (267) 5 16
-    ASSIGN (268) 3
+    FPNUM <realValue> (266) 14
+    MEM <intValue> (267) 3 5 16
+    ASSIGN <intValue> (268) 3
 
 
 Nonterminals, with rules where they appear
 
     $accept (14)
         on left: 0
-    lines (15)
+    lines <realValue> (15)
         on left: 1 2
         on right: 0 1
-    line (16)
+    line <realValue> (16)
         on left: 3 4 5
         on right: 1
-    term (17)
+    term <realValue> (17)
         on left: 6 7 8 9 10
-        on right: 3 4 6 7 8 9 15
-    sigfactor (18)
+        on right: 4 6 7 8 9 15
+    sigfactor <realValue> (18)
         on left: 11 12 13
         on right: 10
-    factor (19)
+    factor <realValue> (19)
         on left: 14 15 16
         on right: 6 7 11 12 13
 
@@ -164,17 +164,9 @@ State 7
 
 State 8
 
-    3 line: ASSIGN • term EOL
+    3 line: ASSIGN • MEM EOL
 
-    PLUS_OP   shift, and go to state 3
-    MINUS_OP  shift, and go to state 4
-    PAR_LEFT  shift, and go to state 5
-    FPNUM     shift, and go to state 6
-    MEM       shift, and go to state 13
-
-    term       go to state 18
-    sigfactor  go to state 11
-    factor     go to state 12
+    MEM  shift, and go to state 18
 
 
 State 9
@@ -258,17 +250,9 @@ State 17
 
 State 18
 
-    3 line: ASSIGN term • EOL
-    6 term: term • MULT_OP factor
-    7     | term • DIV_OP factor
-    8     | term • PLUS_OP term
-    9     | term • MINUS_OP term
+    3 line: ASSIGN MEM • EOL
 
-    PLUS_OP   shift, and go to state 19
-    MINUS_OP  shift, and go to state 20
-    MULT_OP   shift, and go to state 21
-    DIV_OP    shift, and go to state 22
-    EOL       shift, and go to state 25
+    EOL  shift, and go to state 25
 
 
 State 19
@@ -339,7 +323,7 @@ State 24
 
 State 25
 
-    3 line: ASSIGN term EOL •
+    3 line: ASSIGN MEM EOL •
 
     $default  reduce using rule 3 (line)
 

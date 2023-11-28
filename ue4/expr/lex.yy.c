@@ -400,11 +400,11 @@ static const YY_CHAR yy_ec[256] =
        12,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+        1,    1,    1,    1,    1,    1,   13,   13,   13,   13,
 
-        1,    1,    1,    1,    1,    1,    1,    1,   13,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
+       13,   13,   13,   13,   13,   13,   13,   13,   13,   13,
+       13,   13,   13,   13,   13,   13,   13,   13,   13,   13,
+       13,   13,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
@@ -825,7 +825,7 @@ return ASSIGN;
 case 9:
 YY_RULE_SETUP
 #line 35 "expr.l"
-return MEM; // new token for memory variable
+{yylval.intValue = yytext[0] - 'a'; return MEM;} // new token for memory variable
 	YY_BREAK
 case 10:
 /* rule 10 can match eol */
